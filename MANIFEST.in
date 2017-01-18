@@ -1,0 +1,5 @@
+include docs/*.txt
+include criticalnet/data/test/*.png
+
+include README.md
+include LICENSE.txt

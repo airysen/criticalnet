@@ -1,0 +1,9 @@
+*.pyc
+/*.egg-info
+/*.egg
+/build
+/MANIFEST
+/dist
+/__pycache__
+/docs_test
+*~
