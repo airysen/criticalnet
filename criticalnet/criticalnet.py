@@ -75,7 +75,7 @@ class CriticalNet:
                             'constant': cv2.BORDER_CONSTANT,
                             'reflect': cv2.BORDER_REFLECT}  #: see OpenCV:BorderTypes
 
-        self.im = image  # : original image
+        self.im = auto_padding(image)  # : original image
         self.ktimes = ktimes
         self.kernel = kernel
         self.sigma = sigma

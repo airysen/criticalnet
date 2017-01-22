@@ -97,3 +97,10 @@ def count_convex_regions(image, target=1, sep=0, background=0):
     im[np.where(im > sep)] = target
     labels, n = measure.label(im, return_num=True, background=background)
     return n
+
+
+def auto_padding(image):
+    ylen = image.shape[0]
+    xlen = image.shape[1]
+
+    return np.pad(image, [(0, 1 - ylen % 2), (0, 1 - xlen % 2)], mode='edge')

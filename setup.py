@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def lib_import(name):
@@ -9,7 +9,7 @@ def lib_import(name):
             print("\n{0} not found. {1}. \n".format(lb, e))
             exit()
 
-lib_import(['numpy', 'cv2', 'matplotlib'])
+lib_import(['numpy', 'cv2', 'matplotlib', 'scipy'])
 
 setup(name='criticalnet',
       version='0.1',
@@ -25,7 +25,7 @@ setup(name='criticalnet',
       author='Arseniy Kustov',
       author_email='me@airysen.co',
       license='MIT',
-      packages=['criticalnet'],
+      packages = find_packages(),
       install_requires=['scikit-image', 'networkx'
                         ],
       include_package_data=True,
