@@ -186,6 +186,8 @@ class CriticalNet:
         return pos_d
 
     def draw(self, image=None, ax=None, **kwargs):
+        if image is None:
+            image = self.im
         draw_net(self.G, image=image, ax=ax, **kwargs)
 
     def imread2(self, path_to_image):
