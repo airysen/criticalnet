@@ -1,10 +1,15 @@
 import numpy as np
 
 import cv2
+
+from matplotlib import pyplot as plt
+
 from skimage.feature import peak_local_max
 from skimage import measure
 
 from collections import deque
+
+import networkx as nx
 
 
 def calc_space_scale_k(image, k=10, sigma=1.6,
@@ -104,3 +109,31 @@ def auto_padding(image):
     xlen = image.shape[1]
 
     return np.pad(image, [(0, 1 - ylen % 2), (0, 1 - xlen % 2)], mode='edge')
+
+
+def draw_net(G, image=None, ax=None, **kwargs):
+    show_flag = False
+    posd = None
+
+    node_size = kwargs.pop('node_size', 20)
+    width = kwargs.pop('width', 0.5)
+    edge_color = kwargs.pop('edge_color', 'yellow')
+
+    if ax is None:
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        show_flag = True
+
+    if image is not None:
+        posd = {}
+        for node in G.nodes():
+            posd[node] = [node[1], node[0]]
+        ax.imshow(image, **kwargs)
+    nx.draw(G, pos=posd, ax=ax, node_size=node_size, width=width, edge_color=edge_color, **kwargs)
+    if show_flag:
+        plt.show()
+
+
+class NonOddException(Exception):
+    # Raise if image dimensions is not odd
+    pass

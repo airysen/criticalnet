@@ -15,7 +15,8 @@ http://link.springer.com/chapter/10.1007/978-3-642-15558-1_48
 
 .. note::
     "Gu S., Zheng Y., Tomasi C. (2010) Critical Nets and Beta-Stable Features for Image Matching.
-    In: Daniilidis K., Maragos P., Paragios N. (eds) Computer Vision – ECCV 2010. ECCV 2010. Lecture Notes in Computer Science, vol 6313. Springer, Berlin, Heidelberg"
+    In: Daniilidis K., Maragos P., Paragios N. (eds) Computer Vision – ECCV 2010. ECCV 2010. Lecture Notes
+    in Computer Science, vol 6313. Springer, Berlin, Heidelberg"
     .. _a link: http://link.springer.com/chapter/10.1007/978-3-642-15558-1_48
 
 
@@ -27,7 +28,6 @@ http://link.springer.com/chapter/10.1007/978-3-642-15558-1_48
 
 """
 import numpy as np
-from matplotlib import pyplot as plt
 
 import cv2
 
@@ -39,7 +39,7 @@ from .util import *
 class CriticalNet:
 
     def __init__(self, image=None, ktimes=10, kernel='gauss', sigma=1.6, border='replicate',
-                 pixel_connect=8, lap_mode='DOG',  graph_toolkit=None):
+                 pixel_connect=8, lap_mode='DOG', graph_toolkit=None):
         """
         Critical net class
 
@@ -185,15 +185,8 @@ class CriticalNet:
             pos_d[node] = [node[1], node[0]]
         return pos_d
 
-    def draw(self, im=None):
-        if im is None:
-            im = self.im
-        pos = self.get_cnet_pos()
-        fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1)
-        ax.imshow(im)
-        nx.draw(self.G, pos=pos, ax=ax, node_size=20, width=0.5, edge_color='yellow')
-        plt.show()
+    def draw(self, image=None, ax=None, **kwargs):
+        draw_net(self.G, image=image, ax=ax, **kwargs)
 
     def imread2(self, path_to_image):
         self.im = imread(path_to_image, mode='F')
@@ -209,6 +202,9 @@ class CriticalNet:
                        full=False, k=None)
         if draw:
             self.draw()
+
+    def pickle_net(self, savepath):
+        nx.write_gpickle(self.G, savepath)
 
 
 class BetaException(Exception):
